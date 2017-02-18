@@ -5,9 +5,9 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour {
 
 	public Transform target;
-	public Vector3 distance = new Vector3(0f, 1f, -5f);
-	public float positionDamping = 2f;
-	public float rotationDamping = 2f;
+	public Vector3 distance = new Vector3(0f, 0f, 0f);
+	public float positionDamping = 1.5f;
+	public float rotationDamping = 10f;
 	private Transform thisTransform;
 
 	// Use this for initialization

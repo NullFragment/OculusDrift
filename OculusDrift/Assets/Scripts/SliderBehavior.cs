@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SliderBehavior : MonoBehaviour {
 	public ParticleSystem ShootingStar1, ShootingStar2, ShootingStar3, ShootingStar4, ShootingStar5, ShootingStar6, ShootingStar7, ShootingStar8;
 	public ParticleSystem StarTrail1, StarTrail2, StarTrail3, StarTrail4, StarTrail5, StarTrail6, StarTrail7, StarTrail8;
-	public Material Skybox1, Skybox2;
+	public Material Skybox1, Skybox2, Skybox3;
 	public Slider colorSlider;
 	
 	private float SliderValue;
@@ -20,6 +20,12 @@ public class SliderBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		Color SkyboxTint = new Color(1, 1, 1, 1);
+		Skybox1.SetColor("_TintColor", SkyboxTint);
+		Skybox2.SetColor("_TintColor", SkyboxTint);
+		Skybox3.SetColor("_TintColor", SkyboxTint);
+
+
 		//colorSlider.onValueChanged.AddListener(delegate { UpdateColors(); });
 	}
 
@@ -75,19 +81,53 @@ public class SliderBehavior : MonoBehaviour {
 		ShootingStarTrail = new Color(.75f * SliderValue, 0, 0, 1);
 		
 	
-		if (SliderValue <= 0.5) {
-			float opacity = SliderValue * 2f;
+		if (SliderValue < .3333333333333f)
+		{
+			if(SliderValue > 0.15f && SliderValue < .3333333333333f)
+			{
+				float opacity = SliderValue * 2f;
+				Color temp = boxMaterial.color;
+				temp.a = opacity;
+				boxMaterial.color = temp;
+			}
 
-			Color temp = boxMaterial.color;
 
-			temp.a = opacity;
+			RenderSettings.skybox = Skybox1;
+		}
 
-			boxMaterial.color = temp;
+		if (SliderValue > .3333333333333f && SliderValue < .666666666666666f)
+		{
 
-			//RenderSettings.skybox = Skybox1;
-		} else {
+			if (SliderValue > .3333333333333f && SliderValue < 0.45f)
+			{
+				float opacity = 1f - SliderValue * 1.5f;
+				Color temp = boxMaterial.color;
+				temp.a = opacity;
+				boxMaterial.color = temp;
+			}
 
-			//RenderSettings.skybox = Skybox2;
+			RenderSettings.skybox = Skybox2;
+
+			if (SliderValue > .555555555555f && SliderValue < .666666666666666f)
+			{
+				float opacity = SliderValue * 1.2f;
+				Color temp = boxMaterial.color;
+				temp.a = opacity;
+				boxMaterial.color = temp;
+			}
+
+		}
+
+		if (SliderValue > .666666666666666f && SliderValue < 1f)
+		{
+			if (SliderValue > .666666666666666f)
+			{
+				float opacity =1 - SliderValue * 1.2f;
+				Color temp = boxMaterial.color;
+				temp.a = opacity;
+				boxMaterial.color = temp;
+			}
+			RenderSettings.skybox = Skybox3;
 		}
 
 		Debug.Log(SliderValue);

@@ -2,57 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//public class StarField : MonoBehaviour
-//{
-
-//	public int maxStars = 1000;
-//	public int universeSize = 10;
-
-//	private Transform thisTransform;
-//	private float starDistanceSqr;
-//	private float starClipDistanceSqr;
-
-//	public Color starColor;
-//	public int starsMax = 600;
-//	public float starSize = .35f;
-//	public float starDistance = 60f;
-//	public float starClipDistance = 15f;
-
-//	private ParticleSystem.Particle[] points;
-
-//	private void Create()
-//	{
-
-//		points = new ParticleSystem.Particle[maxStars];
-
-//		for (int i = 0; i < maxStars; i++)
-//		{
-//			points[i].position = Random.insideUnitSphere * universeSize;
-//			points[i].startSize = starSize;
-//			points[i].startColor = new Color(starColor.r, starColor.g, starColor.b, 1);
-//		}
-
-//	}
-
-//	void Start()
-//	{
-
-//		Create();
-//	}
-
-//	// Update is called once per frame
-//	void Update()
-//	{
-//		if (points != null)
-//		{
-
-//			GetComponent<ParticleSystem>().SetParticles(points, points.Length);
-
-//		}
-//	}
-//}
-
-
 public class StarField : MonoBehaviour
 {
 
@@ -65,9 +14,9 @@ public class StarField : MonoBehaviour
 
 	public Transform player;
 	public Color starColor;
-	public int starsMax = 5;
+	public int starsMax = 5000;
 	public float starSize = .35f;
-	public float starDistance = 0f;
+	public float starDistance = 10000f;
 	public float starClipDistance = 0f;
 
 	// Use this for initialization
@@ -105,14 +54,6 @@ public class StarField : MonoBehaviour
 		starSize = (float)(1 / (1 + speed));
 		for (int i = 0; i < starsMax; i++)
 		{
-
-			Vector3 newPos = points [i].position;
-
-			newPos.z = newPos.z + 0.02f;
-
-			points [i].position = newPos;
-
-
 			if ((points[i].position - thisTransform.position).sqrMagnitude > starDistanceSqr)
 			{
 				points[i].position = Random.insideUnitSphere.normalized * starDistance + thisTransform.position;
