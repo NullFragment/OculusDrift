@@ -13,6 +13,10 @@ public class SliderBehavior : MonoBehaviour {
 	private Color ShootingStarColor = new Color(1,1,1,1);
 	private Color ShootingStarTrail = new Color(1,1,1,1);
 
+	public Material boxMaterial;
+
+	public AudioListener audio;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -61,30 +65,31 @@ public class SliderBehavior : MonoBehaviour {
 	{
 		Color SkyboxFadein = new Color(1, 1, 1, 1);
 		Color SkyboxFadeout = new Color(0, 0, 0, 1);
-		float duration = 5;
-		float lerp = Mathf.PingPong(Time.time, duration) / duration;
-
 		
 		SliderValue = colorSlider.GetComponent<Slider>().value;
-		
-		if(SliderValue < .3f)
-		{
-			ShootingStarColor = new Color(0, 0, 1f*(1-SliderValue), 1);
-			ShootingStarTrail = new Color(0, 0, .75f*(1-SliderValue), 1);
-			RenderSettings.skybox.SetColor("_Tint", Color.Lerp(SkyboxFadein,SkyboxFadeout,lerp));
 
+		ShootingStarColor = new Color(0, 0, 1f*(1f-SliderValue), 1);
+		ShootingStarTrail = new Color(0, 0, .75f*(1f-SliderValue), 1);
+
+		ShootingStarColor = new Color(1f * SliderValue, 0, 0, 1);
+		ShootingStarTrail = new Color(.75f * SliderValue, 0, 0, 1);
+		
+	
+		if (SliderValue <= 0.5) {
+			float opacity = SliderValue * 2f;
+
+			Color temp = boxMaterial.color;
+
+			temp.a = opacity;
+
+			boxMaterial.color = temp;
+
+			//RenderSettings.skybox = Skybox1;
+		} else {
+
+			//RenderSettings.skybox = Skybox2;
 		}
-		else if(SliderValue > .3f && SliderValue < .7f)
-		{
-			RenderSettings.skybox = Skybox2;
-			RenderSettings.skybox.SetColor("_Tint", SkyboxFadeout);
-		}
-		else if (SliderValue > .7f)
-		{
-			RenderSettings.skybox.SetColor("_Tint", Color.Lerp(SkyboxFadeout, SkyboxFadein, lerp));
-			ShootingStarColor = new Color(1f * SliderValue, 0, 0, 1);
-			ShootingStarTrail = new Color(.75f * SliderValue, 0, 0, 1);
-		}
+
 		Debug.Log(SliderValue);
 	}
 }

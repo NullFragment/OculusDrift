@@ -65,10 +65,10 @@ public class StarField : MonoBehaviour
 
 	public Transform player;
 	public Color starColor;
-	public int starsMax = 1500;
+	public int starsMax = 5;
 	public float starSize = .35f;
-	public float starDistance = 60f;
-	public float starClipDistance = 15f;
+	public float starDistance = 0f;
+	public float starClipDistance = 0f;
 
 	// Use this for initialization
 	void Start()
@@ -105,6 +105,14 @@ public class StarField : MonoBehaviour
 		starSize = (float)(1 / (1 + speed));
 		for (int i = 0; i < starsMax; i++)
 		{
+
+			Vector3 newPos = points [i].position;
+
+			newPos.z = newPos.z + 0.02f;
+
+			points [i].position = newPos;
+
+
 			if ((points[i].position - thisTransform.position).sqrMagnitude > starDistanceSqr)
 			{
 				points[i].position = Random.insideUnitSphere.normalized * starDistance + thisTransform.position;
