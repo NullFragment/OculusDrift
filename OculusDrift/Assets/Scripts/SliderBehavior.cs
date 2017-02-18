@@ -1,15 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SliderBehavior : MonoBehaviour {
 	public ParticleSystem ShootingStar1, ShootingStar2, ShootingStar3, ShootingStar4, ShootingStar5, ShootingStar6, ShootingStar7, ShootingStar8;
 	public ParticleSystem StarTrail1, StarTrail2, StarTrail3, StarTrail4, StarTrail5, StarTrail6, StarTrail7, StarTrail8;
 	public Material Skybox1, Skybox2;
-	private ParticleSystem parti;
+	public Slider colorSlider;
+	
+	private float SliderValue;
+	private Color ShootingStarColor = new Color(1,1,1,1);
+	private Color ShootingStarTrail = new Color(1,1,1,1);
+
 	// Use this for initialization
 	void Start ()
 	{
+		//colorSlider.onValueChanged.AddListener(delegate { UpdateColors(); });
+	}
+
+	// Update is called once per frame
+	void Update ()
+	{
+		UpdateColors();
 		var star1 = ShootingStar1.main;
 		var star2 = ShootingStar2.main;
 		var star3 = ShootingStar3.main;
@@ -26,28 +39,52 @@ public class SliderBehavior : MonoBehaviour {
 		var trail6 = StarTrail6.main;
 		var trail7 = StarTrail7.main;
 		var trail8 = StarTrail8.main;
-		star1.startColor = new Color(1, 1, 1, 1);
-		star2.startColor = new Color(1, 1, 1, 1);
-		star3.startColor = new Color(1, 1, 1, 1);
-		star4.startColor = new Color(1, 1, 1, 1);
-		star5.startColor = new Color(1, 1, 1, 1);
-		star6.startColor = new Color(1, 1, 1, 1);
-		star7.startColor = new Color(1, 1, 1, 1);
-		star8.startColor = new Color(1, 1, 1, 1);
-		trail1.startColor = new Color(1, 1, 1, 0);
-		trail2.startColor = new Color(1, 1, 1, 0);
-		trail3.startColor = new Color(1, 1, 1, 0);
-		trail4.startColor = new Color(1, 1, 1, 0);
-		trail5.startColor = new Color(1, 1, 1, 0);
-		trail6.startColor = new Color(1, 1, 1, 0);
-		trail7.startColor = new Color(1, 1, 1, 0);
-		trail8.startColor = new Color(1, 1, 1, 0);
+		star1.startColor = ShootingStarColor;
+		star2.startColor = ShootingStarColor;
+		star3.startColor = ShootingStarColor;
+		star4.startColor = ShootingStarColor;
+		star5.startColor = ShootingStarColor;
+		star6.startColor = ShootingStarColor;
+		star7.startColor = ShootingStarColor;
+		star8.startColor = ShootingStarColor;
+		trail1.startColor = ShootingStarTrail;
+		trail2.startColor = ShootingStarTrail;
+		trail3.startColor = ShootingStarTrail;
+		trail4.startColor = ShootingStarTrail;
+		trail5.startColor = ShootingStarTrail;
+		trail6.startColor = ShootingStarTrail;
+		trail7.startColor = ShootingStarTrail;
+		trail8.startColor = ShootingStarTrail;
 	}
-
-	// Update is called once per frame
-	void Update ()
+	
+	void UpdateColors ()
 	{
+		Color SkyboxFadein = new Color(1, 1, 1, 1);
+		Color SkyboxFadeout = new Color(0, 0, 0, 1);
+		float duration = 5;
+		float lerp = Mathf.PingPong(Time.time, duration) / duration;
 
+		
+		SliderValue = colorSlider.GetComponent<Slider>().value;
+		
+		if(SliderValue < .3f)
+		{
+			ShootingStarColor = new Color(0, 0, 1f*(1-SliderValue), 1);
+			ShootingStarTrail = new Color(0, 0, .75f*(1-SliderValue), 1);
+			RenderSettings.skybox.SetColor("_Tint", Color.Lerp(SkyboxFadein,SkyboxFadeout,lerp));
 
+		}
+		else if(SliderValue > .3f && SliderValue < .7f)
+		{
+			RenderSettings.skybox = Skybox2;
+			RenderSettings.skybox.SetColor("_Tint", SkyboxFadeout);
+		}
+		else if (SliderValue > .7f)
+		{
+			RenderSettings.skybox.SetColor("_Tint", Color.Lerp(SkyboxFadeout, SkyboxFadein, lerp));
+			ShootingStarColor = new Color(1f * SliderValue, 0, 0, 1);
+			ShootingStarTrail = new Color(.75f * SliderValue, 0, 0, 1);
+		}
+		Debug.Log(SliderValue);
 	}
 }
