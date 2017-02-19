@@ -210,7 +210,8 @@ public class SliderBehavior : MonoBehaviour {
 		
 		if (SliderValue == 0.334f && musicState == 1) // from low to mid
 		{
-			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f), 3));
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.001f), 3));
+
 
 			audioMusic.Stop();
 			audioNoise.Stop();
@@ -237,7 +238,7 @@ public class SliderBehavior : MonoBehaviour {
 
 		}else	if (SliderValue == 0.334f && musicState == 2) // from mid to low
 		{
-			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.001f), 3));
 
 			audioMusic.Stop();
 			audioNoise.Stop();
@@ -266,7 +267,7 @@ public class SliderBehavior : MonoBehaviour {
 
 		if (SliderValue == 0.666f && musicState == 2) // from mid to high
 			{
-			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f), 3));
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.001f), 3));
 
 			audioMusic.Stop();
 				audioNoise.Stop();
@@ -293,7 +294,7 @@ public class SliderBehavior : MonoBehaviour {
 
 		}else if (SliderValue == 0.666f && musicState == 3) // from high to mid
 			{
-			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.001f), 3));
 
 			audioMusic.Stop();
 				audioNoise.Stop();
@@ -326,14 +327,14 @@ public class SliderBehavior : MonoBehaviour {
 
 	void upBtnClickHandler()
 	{
-		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f),3));
+		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.001f),3));
 		UpdateSounds();
 
 	}
 
 	void downBtnClickHandler()
 	{
-		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((float)Math.Floor(colorSlider.GetComponent<Slider>().value - 0.002f),3));
+		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.001f), 3));
 		UpdateSounds();
 	}
 
