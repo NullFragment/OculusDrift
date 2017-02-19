@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 public class SliderBehavior : MonoBehaviour {
+
+	public GameObject particles;
 	public string verticalInputString;
 	public ParticleSystem ShootingStar1, ShootingStar2, ShootingStar3, ShootingStar4, ShootingStar5, ShootingStar6, ShootingStar7, ShootingStar8;
 	public ParticleSystem StarTrail1, StarTrail2, StarTrail3, StarTrail4, StarTrail5, StarTrail6, StarTrail7, StarTrail8;
@@ -37,10 +39,9 @@ public class SliderBehavior : MonoBehaviour {
 	// Use this for initialization
 
 
-
-
 	void Start ()
 	{
+
 		Color SkyboxTint = new Color(1, 1, 1, 1);
 		Skybox1.SetColor("_TintColor", SkyboxTint);
 		Skybox2.SetColor("_TintColor", SkyboxTint);
@@ -150,7 +151,7 @@ public class SliderBehavior : MonoBehaviour {
 		{
 			if(SliderValue > 0.154f && SliderValue < 0.334f)
 			{
-				float opacity = SliderValue * 2f;
+				float opacity = SliderValue * 3f;
 				Color temp = boxMaterial.color;
 				temp.a = opacity;
 				boxMaterial.color = temp;
@@ -167,7 +168,7 @@ public class SliderBehavior : MonoBehaviour {
 
 			if (SliderValue > 0.334f && SliderValue < 0.454f)
 			{
-				float opacity = 1f - SliderValue * 1.5f;
+				float opacity = 1f - SliderValue * 2.5f;
 				Color temp = boxMaterial.color;
 				temp.a = opacity;
 				boxMaterial.color = temp;
@@ -177,7 +178,7 @@ public class SliderBehavior : MonoBehaviour {
 
 			if (SliderValue > 0.554f && SliderValue < 0.666f)
 			{
-				float opacity = SliderValue * 1.2f;
+				float opacity = (SliderValue - 0.2f) * 2f;
 				Color temp = boxMaterial.color;
 				temp.a = opacity;
 				boxMaterial.color = temp;
@@ -192,7 +193,7 @@ public class SliderBehavior : MonoBehaviour {
 
 			if (SliderValue > 0.666f)
 			{
-				float opacity =1 - SliderValue * 1.2f;
+				float opacity = 1 - SliderValue * 0.9f - .5f * SliderValue;
 				Color temp = boxMaterial.color;
 				temp.a = opacity;
 				boxMaterial.color = temp;
@@ -327,11 +328,12 @@ public class SliderBehavior : MonoBehaviour {
 	{
 		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f),3));
 		UpdateSounds();
+
 	}
 
 	void downBtnClickHandler()
 	{
-		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((float)Math.Floor(colorSlider.GetComponent<Slider>().value - 0.002f),3));
 		UpdateSounds();
 	}
 
