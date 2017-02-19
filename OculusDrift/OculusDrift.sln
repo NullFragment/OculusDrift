@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OculusDrift", "OculusDrift.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OculusDrift.Editor.Plugins", "OculusDrift.Editor.Plugins.csproj", "{26201C16-7D9E-77C5-531A-78B44C0DEEA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OculusDrift.Editor", "OculusDrift.Editor.csproj", "{A98410D1-63C8-619C-DFE8-53970019FB77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{26201C16-7D9E-77C5-531A-78B44C0DEEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26201C16-7D9E-77C5-531A-78B44C0DEEA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26201C16-7D9E-77C5-531A-78B44C0DEEA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98410D1-63C8-619C-DFE8-53970019FB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98410D1-63C8-619C-DFE8-53970019FB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98410D1-63C8-619C-DFE8-53970019FB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98410D1-63C8-619C-DFE8-53970019FB77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

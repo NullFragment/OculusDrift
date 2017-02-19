@@ -87,12 +87,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AccelBrainBeat\Scripts\BeatController.cs" />
+    <Compile Include="Assets\AccelBrainBeat\Scripts\BinauralBeatController.cs" />
+    <Compile Include="Assets\AccelBrainBeat\Scripts\Library\BinauralBeat.cs" />
+    <Compile Include="Assets\AccelBrainBeat\Scripts\Library\BrainBeat.cs" />
+    <Compile Include="Assets\AccelBrainBeat\Scripts\Library\MonauralBeat.cs" />
+    <Compile Include="Assets\AccelBrainBeat\Scripts\MonauralBeatController.cs" />
     <Compile Include="Assets\Particle Ribbon\Scripts\ReverseNormals.cs" />
+    <Compile Include="Assets\Scripts\ButtonsMethods.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\SliderBehavior.cs" />
     <Compile Include="Assets\Scripts\StarField.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AccelBrainBeat\ReadMe.txt" />
     <None Include="Assets\Particle Ribbon\readme_Simple_Particle_Ribbon.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />

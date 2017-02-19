@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
+using UnityEngine.EventSystems;
 public class SliderBehavior : MonoBehaviour {
+	public string verticalInputString;
 	public ParticleSystem ShootingStar1, ShootingStar2, ShootingStar3, ShootingStar4, ShootingStar5, ShootingStar6, ShootingStar7, ShootingStar8;
 	public ParticleSystem StarTrail1, StarTrail2, StarTrail3, StarTrail4, StarTrail5, StarTrail6, StarTrail7, StarTrail8;
 	public Material Skybox1, Skybox2, Skybox3;
@@ -25,10 +27,18 @@ public class SliderBehavior : MonoBehaviour {
 	private float noiseVolume = .03f;
 	private float pinknoiseVolue = .03f;
 
-	private int musicState = 1;
+	private int musicState;
 
+	public GameObject upBtn;
+	public GameObject downBtn;
 
+	Button b1;
+	Button b2;
 	// Use this for initialization
+
+
+
+
 	void Start ()
 	{
 		Color SkyboxTint = new Color(1, 1, 1, 1);
@@ -54,7 +64,13 @@ public class SliderBehavior : MonoBehaviour {
 		audioPinkNoise.volume = pinknoiseVolue;
 		audioPinkNoise.Play();
 
+		 b1 = upBtn.GetComponent<Button>();
+		 b2 = downBtn.GetComponent<Button>();
 
+		b1.onClick.AddListener(delegate { upBtnClickHandler(); });
+		b2.onClick.AddListener(delegate { downBtnClickHandler(); });
+
+		musicState = 1;
 	}
 
 	// Update is called once per frame
@@ -62,7 +78,26 @@ public class SliderBehavior : MonoBehaviour {
 	{
 		UpdateColors();
 
-		UpdateSounds();
+		if (Input.GetButton("Fire1"))
+		{
+			upBtnClickHandler();
+		}
+
+		if (Input.GetAxis(verticalInputString) > 0.5f)
+		{
+			upBtnClickHandler();
+		}
+
+		if (Input.GetAxis(verticalInputString) < -0.5f)
+		{
+			downBtnClickHandler();
+		}
+
+		if (Input.GetButton("Fire2"))
+		{
+			downBtnClickHandler();
+		}
+
 		var star1 = ShootingStar1.main;
 		var star2 = ShootingStar2.main;
 		var star3 = ShootingStar3.main;
@@ -111,9 +146,9 @@ public class SliderBehavior : MonoBehaviour {
 		ShootingStarTrail = new Color(.75f * SliderValue, 0, 0, 1);
 		
 	
-		if (SliderValue < .3333333333333f)
+		if (SliderValue < 0.334f)
 		{
-			if(SliderValue > 0.15f && SliderValue < .3333333333333f)
+			if(SliderValue > 0.154f && SliderValue < 0.334f)
 			{
 				float opacity = SliderValue * 2f;
 				Color temp = boxMaterial.color;
@@ -125,12 +160,12 @@ public class SliderBehavior : MonoBehaviour {
 			RenderSettings.skybox = Skybox1;
 		}
 
-		if (SliderValue > .3333333333333f && SliderValue < .666666666666666f)
+		if (SliderValue > 0.334f && SliderValue < 0.666f)
 		{
 
 
 
-			if (SliderValue > .3333333333333f && SliderValue < 0.45f)
+			if (SliderValue > 0.334f && SliderValue < 0.454f)
 			{
 				float opacity = 1f - SliderValue * 1.5f;
 				Color temp = boxMaterial.color;
@@ -140,7 +175,7 @@ public class SliderBehavior : MonoBehaviour {
 
 			RenderSettings.skybox = Skybox2;
 
-			if (SliderValue > .555555555555f && SliderValue < .666666666666666f)
+			if (SliderValue > 0.554f && SliderValue < 0.666f)
 			{
 				float opacity = SliderValue * 1.2f;
 				Color temp = boxMaterial.color;
@@ -150,12 +185,12 @@ public class SliderBehavior : MonoBehaviour {
 
 		}
 
-		if (SliderValue > .666666666666666f && SliderValue < 1f)
+		if (SliderValue > 0.666f && SliderValue < 1f)
 		{
 
 
 
-			if (SliderValue > .666666666666666f)
+			if (SliderValue > 0.666f)
 			{
 				float opacity =1 - SliderValue * 1.2f;
 				Color temp = boxMaterial.color;
@@ -165,13 +200,17 @@ public class SliderBehavior : MonoBehaviour {
 			RenderSettings.skybox = Skybox3;
 		}
 
-		Debug.Log(SliderValue);
 	}
 
 	void UpdateSounds()
 	{
-		if (SliderValue == 0.33f && musicState == 1) // from low to mid
+
+		Debug.Log(SliderValue);
+		
+		if (SliderValue == 0.334f && musicState == 1) // from low to mid
 		{
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f), 3));
+
 			audioMusic.Stop();
 			audioNoise.Stop();
 
@@ -192,11 +231,13 @@ public class SliderBehavior : MonoBehaviour {
 			audioNoise.Play();
 
 			musicState = 2;
-			SliderValue += 0.01f;
-		}
+			Debug.Log("Changing state from low to mid");
 
-		if (SliderValue == 0.33f && musicState == 2) // from mid to low
+
+		}else	if (SliderValue == 0.334f && musicState == 2) // from mid to low
 		{
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+
 			audioMusic.Stop();
 			audioNoise.Stop();
 
@@ -217,13 +258,16 @@ public class SliderBehavior : MonoBehaviour {
 			audioNoise.Play();
 
 			musicState = 1;
+			Debug.Log("Changing state from mid to low");
 
-			SliderValue -= 0.01f;
+
 		}
 
-		if (SliderValue == 0.66f && musicState == 2) // from mid to high
+		if (SliderValue == 0.666f && musicState == 2) // from mid to high
 			{
-				audioMusic.Stop();
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f), 3));
+
+			audioMusic.Stop();
 				audioNoise.Stop();
 
 				audioMusic.clip = highMain;
@@ -243,12 +287,14 @@ public class SliderBehavior : MonoBehaviour {
 				audioNoise.Play();
 
 				musicState = 3;
-				SliderValue += 0.01f;
-			}
+			Debug.Log("Changing state from mid to high");
 
-			if (SliderValue == 0.66f && musicState == 3) // from high to mid
+
+		}else if (SliderValue == 0.666f && musicState == 3) // from high to mid
 			{
-				audioMusic.Stop();
+			colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+
+			audioMusic.Stop();
 				audioNoise.Stop();
 
 				audioMusic.clip = midMain;
@@ -268,11 +314,25 @@ public class SliderBehavior : MonoBehaviour {
 				audioNoise.Play();
 
 				musicState = 2;
+			Debug.Log("Changing state from high to mid");
 
-				SliderValue -= 0.01f;
-			}
 
-		
+		}
+
+
 
 	}
+
+	void upBtnClickHandler()
+	{
+		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value + 0.002f),3));
+		UpdateSounds();
+	}
+
+	void downBtnClickHandler()
+	{
+		colorSlider.GetComponent<Slider>().value = (float)(Math.Round((colorSlider.GetComponent<Slider>().value - 0.002f), 3));
+		UpdateSounds();
+	}
+
 }

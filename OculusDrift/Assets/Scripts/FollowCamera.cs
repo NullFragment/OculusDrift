@@ -5,6 +5,8 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour {
 
 	public Transform target;
+	public Transform player;
+	public float movementSpeed = 10;
 	public Vector3 distance = new Vector3(0f, 0f, 0f);
 	public float positionDamping = 1.5f;
 	public float rotationDamping = 10f;
@@ -23,7 +25,7 @@ public class FollowCamera : MonoBehaviour {
 		{
 			return;
 		}
-		
+		player.position += player.forward * Time.deltaTime * movementSpeed;
 		Vector3 wantedPosition = target.position + (target.rotation * distance);
 		Vector3 currentPositon = Vector3.Lerp(thisTransform.position, wantedPosition, positionDamping * Time.deltaTime);
 		Quaternion wantedRotation = Quaternion.LookRotation(target.position - thisTransform.position, target.up);

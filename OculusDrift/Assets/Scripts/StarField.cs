@@ -67,7 +67,6 @@ public class StarField : MonoBehaviour
 			}
 		}
 
-		Debug.Log(starSize);
 
 		GetComponent<ParticleSystem>().SetParticles(points, points.Length);
 	}
